@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GameModes/HW6_GameModeBase.h"
-#include "MovingPlatform.h"
-#include "RotatingPlatform.h"
-#include "Tile.h"
+#include "HW6/GameModes/HW6_GameModeBase.h"
+#include "HW6/MovingPlatform.h"
+#include "HW6/RotatingPlatform.h"
+#include "HW6/Tile.h"
 
 AHW6_GameModeBase::AHW6_GameModeBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -61,7 +61,7 @@ void AHW6_GameModeBase::SpawnMovingPlatforms()
 {
 	if(UWorld* World = GetWorld())
 	{
-		const FVector StartLocation = FVector(0.0f, -500.0f, 0.0f);
+		const FVector StartLocation = FVector(-50.0f, -500.0f, 10.0f);
 		// 타일 간격과 맞춰 사용할 것이므로 Tile과 동일한 변수(TileCol, TileSpawnSpacing) 사용
 		for(int32 i = 0; i < TileCol; ++i)
 		{

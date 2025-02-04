@@ -1,4 +1,4 @@
-#include "RotatingPlatform.h"
+#include "HW6/RotatingPlatform.h"
 
 // Sets default values
 ARotatingPlatform::ARotatingPlatform(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -26,9 +26,6 @@ void ARotatingPlatform::SetRotationSpeed(const float InRotationSpeed)
 void ARotatingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if(!FMath::IsNearlyZero(RotationSpeed))
-	{
-		AddActorLocalRotation(FRotator(0.0f,DeltaTime * RotationSpeed, 0.0f));	
-	}
+	AddActorLocalRotation(FRotator(0.0f,DeltaTime * RotationSpeed, 0.0f));
 }
 

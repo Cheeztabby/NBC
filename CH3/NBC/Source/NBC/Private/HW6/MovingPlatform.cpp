@@ -1,4 +1,4 @@
-#include "MovingPlatform.h"
+#include "HW6/MovingPlatform.h"
 
 AMovingPlatform::AMovingPlatform(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -24,6 +24,7 @@ void AMovingPlatform::SetMoveSpeed(const float InMoveSpeed)
 void AMovingPlatform::SetMaxRange(const float InMaxRange)
 {
 	MaxRange = InMaxRange;
+	MaxRangeSquared = FMath::Square(InMaxRange);
 }
 
 void AMovingPlatform::BeginPlay()
@@ -34,16 +35,15 @@ void AMovingPlatform::BeginPlay()
 void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
-	if(FVector::Dist(StartLocation, GetActorLocation()) >= MaxRange)
+	//if(FVector::Dist(StartLocation, GetActorLocation()) >= MaxRange)
+	if(FVector::DistSquared(StartLocation, GetActorLocation()) >= MaxRangeSquared)
 	{
 		bSwitchDirection = !bSwitchDirection;	
 	}
-	float SwitchSign = 1.0f;
+	float AddOffset = MoveSpeed * DeltaTime;
 	if(bSwitchDirection)
 	{
-		SwitchSign = -1.0f;
+		AddOffset *= -1.0f;
 	}
-	AddActorLocalOffset(FVector(0.0f,SwitchSign * MoveSpeed * DeltaTime,0.0f), true);	
+	AddActorLocalOffset(FVector(0.0f,AddOffset,0.0f), true);	
 }
-
