@@ -23,6 +23,17 @@ void AHW8_GameState::BeginPlay()
 
 void AHW8_GameState::StartWave()
 {
+	// Delete Prev Wave Items
+	TArray<AActor*> WorldItems;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AItemBase::StaticClass(), WorldItems);
+	for (AActor* WorldItem : WorldItems)
+	{
+		if (AItemBase* Item = Cast<AItemBase>(WorldItem))
+		{
+			Item->DestroyItem();
+		}
+	}
+	
 	if (AHW8_PlayerController* PlayerController = GetWorld()->GetFirstPlayerController<AHW8_PlayerController>())
 	{
 		PlayerController->ShowGameHUD();
@@ -60,17 +71,6 @@ void AHW8_GameState::StartWave()
 void AHW8_GameState::UpdateWave()
 {
 	GetWorldTimerManager().ClearTimer(LevelTimerHandle);
-
-	// Delete Prev Wave Items
-	TArray<AActor*> WorldItems;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AItemBase::StaticClass(), WorldItems);
-	for (AActor* WorldItem : WorldItems)
-	{
-		if (AItemBase* Item = Cast<AItemBase>(WorldItem))
-		{
-			Item->DestroyItem();
-		}
-	}
 
 	// Update Prev Player Score, LevelIndex(using WaveIndex)
 	if (UHW8_GameInstance* GameInstance = Cast<UHW8_GameInstance>(GetGameInstance()))

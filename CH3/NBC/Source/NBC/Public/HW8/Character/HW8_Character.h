@@ -37,7 +37,7 @@ protected:
 
 	void Look(const FInputActionValue& Value);
 	
-	void OnDeath();
+	void OnDeath() const;
 	
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")

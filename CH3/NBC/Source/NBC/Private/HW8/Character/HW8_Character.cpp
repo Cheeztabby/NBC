@@ -8,6 +8,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "HW8/GameState/HW8_GameState.h"
 
 AHW8_Character::AHW8_Character()
 {
@@ -106,6 +107,12 @@ float AHW8_Character::TakeDamage(float DamageAmount, struct FDamageEvent const& 
 	return ActualDamage;
 }
 
-void AHW8_Character::OnDeath()
+void AHW8_Character::OnDeath() const
 {
+	GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
+	GetMesh()->SetSimulatePhysics(true);
+	if(AHW8_GameState* GameState = GetWorld()->GetGameState<AHW8_GameState>())
+	{
+		GameState->OnGameOver();
+	}
 }

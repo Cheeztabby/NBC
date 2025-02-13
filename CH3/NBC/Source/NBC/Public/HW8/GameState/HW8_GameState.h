@@ -26,14 +26,14 @@ public:
 	void OnCoinCollected();
 
 	void UpdateHUD() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Level")
+	void OnGameOver();
 protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Level")
 	void StartLevel();
-
-	UFUNCTION(BlueprintCallable, Category = "Level")
-	void OnGameOver();
 
 	void OnLevelTimeUp();
 
